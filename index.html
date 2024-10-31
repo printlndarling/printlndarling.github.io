@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>引导页面</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96e6a1);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Arial', sans-serif;
+            position: relative;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .card {
+            aspect-ratio: 1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.1),
+                        -20px -20px 60px rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            min-height: 180px;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: translateX(-100%);
+            transition: 0.6s;
+        }
+
+        .card:hover::before {
+            transform: translateX(100%);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .card span {
+            font-size: 1.5rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: bold;
+            letter-spacing: 2px;
+            z-index: 1;
+        }
+
+        .welcome-tips {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            opacity: 0;
+            transition: all 0.6s ease;
+            z-index: 1000;
+        }
+
+        .welcome-tips.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* 响应式布局 */
+        @media (max-width: 1200px) {
+            .container {
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 1rem;
+                padding: 1rem;
+            }
+            .card {
+                min-height: 150px;
+            }
+            .card span {
+                font-size: 1.2rem;
+            }
+            .welcome-tips {
+                font-size: 1rem;
+                padding: 0.8rem 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .card {
+                min-height: 120px;
+            }
+            .card span {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="welcome-tips">欢迎来到我的个人导航站点~</div>
+    
+    <div class="container">
+        <a href="https://baidu.com/" class="card" target=_black>
+            <span>博客</span>
+        </a>
+        <a href="#music" class="card">
+            <span>音乐</span>
+        </a>
+        <a href="#ai" class="card">
+            <span>AI</span>
+        </a>
+        <a href="#reading" class="card">
+            <span>阅读</span>
+        </a>
+        <!-- 可以继续添加更多卡片 -->
+    </div>
+
+    <script>
+        // 卡片悬浮效果
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseover', function() {
+                this.style.transition = 'all 0.4s ease';
+            });
+            
+            card.addEventListener('mouseout', function() {
+                this.style.transition = 'all 0.4s ease';
+            });
+        });
+
+        // 欢迎提示效果
+        window.addEventListener('load', function() {
+            const tips = document.querySelector('.welcome-tips');
+            setTimeout(() => {
+                tips.classList.add('show');
+            }, 500);
+
+            // 3秒后自动隐藏提示
+            setTimeout(() => {
+                tips.classList.remove('show');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
